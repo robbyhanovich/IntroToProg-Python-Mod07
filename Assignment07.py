@@ -31,7 +31,7 @@ class Person:
     """
 
     # TODO Add first_name and last_name properties to the constructor (Done)
-    def __init__ (self, first_name: str ="", last_name: str = ""):
+    def __init__ (self, first_name: str ="", last_name: str = "") -> None:
         """ This initializes the values of the Person class with empty strings
 
          ChangeLog: (Who, When, What)
@@ -55,10 +55,10 @@ class Person:
 
         :return: first name as a string using title case
         """
-        return (self.__first_name).title()  # return first name using title case
+        return self.__first_name.title()  # return first name using title case
 
     @first_name.setter  # setter for first_name of Person class
-    def first_name (self, value):
+    def first_name (self, value) -> None:
         """This is setter method for the first_name of the Person class.
 
          ChangeLog: (Who, When, What)
@@ -81,7 +81,7 @@ class Person:
 
         :return: last name as a string using title case
         """
-        return (self.__last_name).title()  # return last name using title case
+        return self.__last_name.title()  # return last name using title case
 
     @last_name.setter  # setter for last_name of Person class
     def last_name (self, value) -> None:
@@ -98,7 +98,7 @@ class Person:
             raise Exception ("Last names cannot be numbers.\n")
 
     # TODO Override the __str__() method to return Person data (Done)
-    def __str__(self):
+    def __str__(self) -> str:
         """This method overrides the default __str__ and returns a comma separated
          string of the Person Class.
 
@@ -114,7 +114,7 @@ class Person:
 class Student (Person):
 
     # TODO call to the Person constructor and pass it the first_name and last_name data (Done)
-    def __init__ (self, first_name: str ="", last_name: str = "", course_name: str = ""):
+    def __init__ (self, first_name: str ="", last_name: str = "", course_name: str = "") -> None:
         """ This initializes the values of the Student class with empty strings
 
          ChangeLog: (Who, When, What)
@@ -141,7 +141,7 @@ class Student (Person):
 
         :return: course name as a string using title case
         """
-        return (self.__course_name).title()  # return last name using title case
+        return self.__course_name.title()  # return last name using title case
 
     # TODO add the setter for course_name (Done)
     @course_name.setter  # setter for last_name of Person class
@@ -157,7 +157,7 @@ class Student (Person):
 
 
     # TODO Override the __str__() method to return the Student data (Done)
-def __str__(self):
+def __str__(self) -> str:
     """This method overrides the default __str__ and returns a comma separated
      string of the Student Class.
 
@@ -175,14 +175,18 @@ class FileProcessor:
 
     ChangeLog: (Who, When, What)
     RRoot,1.1.2030,Created Class
+    Robby Hanovich, 31 May 2026, updated functions below to support Person and Student Classes
+        - read_data_from_file
+        - write_data_to_file
     """
     @staticmethod
-    def read_data_from_file(file_name: str):
+    def read_data_from_file(file_name: str) -> list[Student]:
         """ This function reads data from a JSON file and loads it into a list of dictionary rows
         then returns the list filled with student data.
 
         ChangeLog: (Who, When, What)
         RRoot,1.1.2030,Created function
+        Robby Hanovich, 31 May 2026, updated functions below to support Person and Student Classes
 
         :param file_name: string data with name of file to read from
 
@@ -212,11 +216,12 @@ class FileProcessor:
         return student_objects
 
     @staticmethod
-    def write_data_to_file(file_name: str, student_data: list[Student]):
+    def write_data_to_file(file_name: str, student_data: list[Student]) -> None:
         """ This function writes data to a JSON file with data from a list of dictionary rows
 
         ChangeLog: (Who, When, What)
         RRoot,1.1.2030,Created function
+        Robby Hanovich, 31 May 2026, updated functions below to support Person and Student Classes
 
         :param file_name: string data with name of file to write to
         :param student_data: list of dictionary rows to be writen to the file
@@ -232,7 +237,7 @@ class FileProcessor:
                 student_objects.append ({"FirstName":student.first_name, "LastName": student.last_name, "CourseName": student.course_name})
 
             file = open(file_name, "w")
-            json.dumps(student_objects, file, indent=2)
+            json.dump ( student_objects,file, indent=2)
 
             IO.output_student_and_course_names(student_data=student_data)
         except Exception as e:
@@ -254,6 +259,10 @@ class IO:
     RRoot,1.2.2030,Added menu output and input functions
     RRoot,1.3.2030,Added a function to display the data
     RRoot,1.4.2030,Added a function to display custom error messages
+    Robby Hanovich, 31 May 2026, updated functions below to support Person and Student Classes
+        - output_student_and_course_names
+        - input_student_data(student_data
+
     """
 
     @staticmethod
@@ -274,7 +283,7 @@ class IO:
             print(error, error.__doc__, type(error), sep='\n')
 
     @staticmethod
-    def output_menu(menu: str):
+    def output_menu(menu: str) -> None:
         """ This function displays the menu of choices to the user
 
         ChangeLog: (Who, When, What)
@@ -288,7 +297,7 @@ class IO:
         print()  # Adding extra space to make it look nicer.
 
     @staticmethod
-    def input_menu_choice():
+    def input_menu_choice() -> str:
         """ This function gets a menu choice from the user
 
         ChangeLog: (Who, When, What)
@@ -307,11 +316,12 @@ class IO:
         return choice
 
     @staticmethod
-    def output_student_and_course_names(student_data: list[Student]):
+    def output_student_and_course_names(student_data: list[Student]) -> None:
         """ This function displays the student and course names to the user
 
         ChangeLog: (Who, When, What)
         RRoot,1.1.2030,Created function
+        Robby Hanovich, 31 May 2026, updated functions below to support Person and Student Classes
 
         :param student_data: list of dictionary rows to be displayed
 
@@ -327,11 +337,12 @@ class IO:
         print("-" * 50)
 
     @staticmethod
-    def input_student_data(student_data: list[Student]):
+    def input_student_data(student_data: list[Student]) -> list[Student]:
         """ This function gets the student's first name and last name, with a course name from the user
 
         ChangeLog: (Who, When, What)
         RRoot,1.1.2030,Created function
+        Robby Hanovich, 31 May 2026, updated functions below to support Person and Student Classes
 
         :param student_data: list of dictionary rows to be filled with input data
 
