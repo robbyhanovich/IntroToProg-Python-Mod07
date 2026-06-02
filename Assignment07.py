@@ -69,7 +69,7 @@ class Person:
         if str (value).isalpha():
             self.__first_name = str(value).title() #set the first name using title case
         else:
-            raise Exception ("First names cannot be numbers.\n")
+            raise Exception ("First names cannot contain numbers.\n")
 
     # TODO Create a getter and setter for the last_name property (Done)
     @property          #getter for last_name of Person class
@@ -95,7 +95,7 @@ class Person:
         if str (value).isalpha():
             self.__last_name = str(value).title() #set the last name using title case
         else:
-            raise Exception ("Last names cannot be numbers.\n")
+            raise Exception ("Last names cannot contain numbers.\n")
 
     # TODO Override the __str__() method to return Person data (Done)
     def __str__(self) -> str:
@@ -204,7 +204,8 @@ class FileProcessor:
             # TODO replace this line of code to convert dictionary data to Student data (Done)
             #student_objects = json_students
             for row in json_students:
-                student_objects.append(Student(first_name = row['FirstName'], last_name = row['LastName'], course_name = row['CourseName']))
+                student_objects.append(Student(first_name = row['FirstName'], last_name = row['LastName'],
+                                               course_name = row['CourseName']))
 
         except Exception as e:
             IO.output_error_messages(message="Error: There was a problem with reading the file.", error=e)
@@ -234,7 +235,8 @@ class FileProcessor:
             # TODO Add code to convert Student objects into dictionaries (Done)
             student_objects:list[dict[str,str]] = []
             for student in student_data:
-                student_objects.append ({"FirstName":student.first_name, "LastName": student.last_name, "CourseName": student.course_name})
+                student_objects.append ({"FirstName":student.first_name, "LastName": student.last_name,
+                                         "CourseName": student.course_name})
 
             file = open(file_name, "w")
             json.dump ( student_objects,file, indent=2)
